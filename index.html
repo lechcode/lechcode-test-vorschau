@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  LECHCODE — Testseite (Sandbox zum Berater-Testen)                ║
+  ║  Fiktive Marke „CoreShift" · Mental-Coaching. NICHT echt.         ║
+  ║  Zweck: den KI-Berater im Kundenbereich gefahrlos ausprobieren.   ║
+  ║  Cookiefrei, selbst-tragend (keine externen Requests).            ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.classList.add('js');</script>
+  <meta name="robots" content="noindex, nofollow" />
+  <title>CoreShift — Mentale Stärke &amp; Klarheit | Testseite</title>
+  <meta name="description" content="Ganzheitliches Mental-Coaching in München. Testseite von Lechcode." />
+  <meta name="theme-color" content="#f6f5f8" />
+  <meta property="og:title" content="CoreShift — Mentale Stärke &amp; Klarheit" />
+  <meta property="og:description" content="Ganzheitliches Mental-Coaching in München." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%236d4bf0'/%3E%3Cpath d='M20 40 C 26 28, 38 28, 44 24' fill='none' stroke='%23fff' stroke-width='5' stroke-linecap='round'/%3E%3Ccircle cx='44' cy='24' r='5' fill='%23ff6a3d'/%3E%3C/svg%3E" />
+  <style>
+  :root{
+    --bg:#f5f4f8; --bg-2:#ffffff; --ink:#141019; --ink-soft:#3a3546; --muted:#726d7e;
+    --violet:#6d4bf0; --violet-2:#9a7cf7; --coral:#ff6a3d; --amber:#ffc23c; --mint:#2fc3a0;
+    --card:#ffffff; --line:rgba(20,16,25,.09); --line-2:rgba(20,16,25,.14);
+    --pill:999px; --r:20px; --r-lg:30px;
+    --sans:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --shadow:0 30px 60px -30px rgba(48,32,90,.35);
+    --shadow-sm:0 14px 30px -18px rgba(48,32,90,.4);
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  h1,h2,h3{line-height:1.05;letter-spacing:-.03em;font-weight:800;text-wrap:balance;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{width:min(1120px,92vw);margin-inline:auto;}
+  .grad{background:linear-gradient(105deg,var(--violet),var(--coral) 70%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--violet);background:rgba(109,75,240,.09);border:1px solid rgba(109,75,240,.18);padding:7px 14px;border-radius:var(--pill);}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--coral);}
+
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:15.5px;font-family:var(--sans);
+    padding:15px 26px;border-radius:var(--pill);border:none;cursor:pointer;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .2s;}
+  .btn-primary{background:var(--ink);color:#fff;box-shadow:var(--shadow-sm);}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 22px 40px -18px rgba(48,32,90,.6);}
+  .btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.6px var(--line-2);}
+  .btn-ghost:hover{transform:translateY(-3px);box-shadow:inset 0 0 0 1.6px var(--ink);}
+  .btn .arr{transition:transform .3s var(--ease);}
+  .btn:hover .arr{transform:translateX(4px);}
+
+  /* ── Nav ── */
+  header.nav{position:sticky;top:0;z-index:60;backdrop-filter:blur(14px);background:rgba(245,244,248,.72);border-bottom:1px solid transparent;transition:border-color .3s,background .3s;}
+  header.nav.scrolled{border-color:var(--line);background:rgba(245,244,248,.9);}
+  .nav-in{height:74px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:-.03em;}
+  .brand .mark{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--violet),var(--violet-2));display:grid;place-items:center;box-shadow:var(--shadow-sm);}
+  .brand .mark svg{width:20px;height:20px;}
+  .nav-links{display:flex;align-items:center;gap:30px;}
+  .nav-links a.lnk{font-size:15px;color:var(--ink-soft);font-weight:600;transition:color .2s;}
+  .nav-links a.lnk:hover{color:var(--ink);}
+  .nav-cta{display:flex;align-items:center;gap:14px;}
+  .burger{display:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--line-2);background:var(--bg-2);cursor:pointer;place-items:center;}
+  .burger span{display:block;width:18px;height:2px;background:var(--ink);position:relative;}
+  .burger span::before,.burger span::after{content:"";position:absolute;left:0;width:18px;height:2px;background:var(--ink);}
+  .burger span::before{top:-6px;} .burger span::after{top:6px;}
+
+  /* ── Hero ── */
+  .hero{position:relative;padding:clamp(48px,8vw,104px) 0 clamp(40px,6vw,72px);overflow:hidden;}
+  .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;z-index:0;pointer-events:none;animation:drift 18s var(--ease) infinite alternate;}
+  .blob.b1{width:520px;height:520px;background:radial-gradient(circle,#c9b6ff,transparent 65%);top:-160px;left:-120px;}
+  .blob.b2{width:460px;height:460px;background:radial-gradient(circle,#ffcbb3,transparent 65%);top:40px;right:-140px;animation-delay:-6s;}
+  .blob.b3{width:400px;height:400px;background:radial-gradient(circle,#b6f0e0,transparent 65%);bottom:-180px;left:30%;animation-delay:-11s;}
+  @keyframes drift{from{transform:translate(0,0) scale(1);}to{transform:translate(40px,30px) scale(1.12);}}
+  .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,56px);align-items:center;}
+  .hero h1{font-size:clamp(40px,6.4vw,76px);}
+  .hero .lead{margin-top:22px;font-size:clamp(16px,1.5vw,19px);color:var(--muted);max-width:44ch;line-height:1.6;}
+  .hero .cta-row{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap;}
+  .hero .assur{margin-top:20px;font-size:14px;color:var(--muted);display:flex;align-items:center;gap:8px;}
+  .hero .assur b{color:var(--ink);font-weight:700;}
+
+  /* Hero-Visual: schwebende Kacheln + Linien */
+  .stage{position:relative;aspect-ratio:1/1;width:100%;max-width:460px;margin-inline:auto;}
+  .stage svg.lines{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible;}
+  .stage svg.lines path{stroke:var(--line-2);stroke-width:2;stroke-dasharray:5 7;fill:none;}
+  .tile{position:absolute;background:var(--card);border-radius:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;padding:16px 18px;z-index:2;animation:float 6s ease-in-out infinite;}
+  .tile .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;box-shadow:var(--shadow-sm);}
+  .tile .ic svg{width:22px;height:22px;color:#fff;}
+  .tile .lab{font-weight:700;font-size:14.5px;letter-spacing:-.01em;}
+  .tile .sub{font-size:12px;color:var(--muted);}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+  .tile.t-core{left:50%;top:50%;transform:translate(-50%,-50%);width:150px;align-items:center;text-align:center;animation-duration:7s;z-index:3;}
+  .tile.t-core .ic{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,var(--violet),var(--violet-2));}
+  .tile.t-core .ic svg{width:28px;height:28px;}
+  .tile.t1{top:2%;left:6%;animation-delay:-1s;} .tile.t1 .ic{background:linear-gradient(135deg,#ffb23c,#ff8a3c);}
+  .tile.t2{top:8%;right:0;animation-delay:-2.5s;} .tile.t2 .ic{background:linear-gradient(135deg,var(--coral),#ff4d6d);}
+  .tile.t3{bottom:6%;left:0;animation-delay:-3.5s;} .tile.t3 .ic{background:linear-gradient(135deg,var(--mint),#37b0ff);}
+  .tile.t4{bottom:0;right:6%;animation-delay:-1.8s;} .tile.t4 .ic{background:linear-gradient(135deg,#8b6cf6,#6d4bf0);}
+  .eyes{position:absolute;top:44%;right:-6%;background:var(--amber);width:52px;height:52px;border-radius:16px;display:grid;place-items:center;box-shadow:var(--shadow-sm);z-index:4;font-size:22px;animation:float 5s ease-in-out infinite;animation-delay:-2s;}
+
+  /* ── Marquee ── */
+  .marquee{margin-top:clamp(30px,5vw,56px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;overflow:hidden;position:relative;}
+  .marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2;}
+  .marquee::before{left:0;background:linear-gradient(90deg,var(--bg),transparent);}
+  .marquee::after{right:0;background:linear-gradient(270deg,var(--bg),transparent);}
+  .marquee-track{display:flex;gap:44px;width:max-content;animation:slide 26s linear infinite;}
+  .marquee-track span{font-size:19px;font-weight:700;color:var(--ink-soft);letter-spacing:-.01em;display:flex;align-items:center;gap:44px;}
+  .marquee-track span::after{content:"◆";color:var(--violet);font-size:11px;}
+  @keyframes slide{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ── Sektionen ── */
+  section{position:relative;}
+  .sec{padding:clamp(56px,8vw,104px) 0;}
+  .sec-head{max-width:640px;margin-bottom:clamp(30px,4vw,52px);}
+  .sec-head h2{font-size:clamp(30px,4.4vw,50px);margin-top:16px;}
+  .sec-head p{margin-top:16px;color:var(--muted);font-size:17px;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+
+  .pain .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px;transition:transform .35s var(--ease),box-shadow .35s var(--ease);}
+  .pain .card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+  .pain .card .badge{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;margin-bottom:16px;}
+  .pain .card h3{font-size:20px;} .pain .card p{margin-top:9px;color:var(--muted);font-size:15px;}
+
+  .offer{background:var(--bg-2);}
+  .offer .card{border:1px solid var(--line);border-radius:var(--r);padding:30px;background:var(--card);display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s;}
+  .offer .card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent;}
+  .offer .card .ic{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;margin-bottom:18px;box-shadow:var(--shadow-sm);}
+  .offer .card .ic svg{width:26px;height:26px;color:#fff;}
+  .offer .card h3{font-size:21px;} .offer .card p{margin-top:10px;color:var(--muted);font-size:15px;flex:1;}
+  .offer .card .meta{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-soft);font-weight:600;}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s;}
+  .step{position:relative;padding:28px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);}
+  .step .n{counter-increment:s;font-family:var(--sans);font-weight:800;font-size:15px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff;margin-bottom:16px;}
+  .step .n::before{content:"0" counter(s);}
+  .step h3{font-size:19px;} .step p{margin-top:8px;color:var(--muted);font-size:15px;}
+
+  /* Stats */
+  .stats{background:linear-gradient(135deg,var(--violet),#7d3bf0);color:#fff;border-radius:var(--r-lg);padding:clamp(34px,5vw,56px);display:grid;grid-template-columns:repeat(3,1fr);gap:24px;box-shadow:var(--shadow);}
+  .stat .num{font-size:clamp(38px,5vw,58px);font-weight:800;letter-spacing:-.04em;line-height:1;}
+  .stat .lbl{margin-top:10px;color:rgba(255,255,255,.82);font-size:15px;}
+
+  /* Stimmen */
+  .voices{background:var(--bg-2);}
+  .voice{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px;}
+  .voice .stars{color:var(--amber);font-size:16px;letter-spacing:2px;}
+  .voice blockquote{margin-top:14px;font-size:18px;line-height:1.55;letter-spacing:-.01em;font-weight:600;}
+  .voice .who{margin-top:18px;display:flex;align-items:center;gap:12px;}
+  .voice .av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--amber));display:grid;place-items:center;color:#fff;font-weight:700;}
+  .voice .who b{font-size:14.5px;} .voice .who span{display:block;font-size:13px;color:var(--muted);font-weight:500;}
+
+  /* CTA */
+  .cta-band{position:relative;overflow:hidden;background:var(--ink);color:#fff;border-radius:var(--r-lg);padding:clamp(44px,6vw,80px) clamp(28px,5vw,64px);text-align:center;box-shadow:var(--shadow);}
+  .cta-band .blob{opacity:.4;}
+  .cta-band h2{font-size:clamp(30px,4.6vw,54px);position:relative;z-index:2;}
+  .cta-band p{position:relative;z-index:2;margin-top:16px;color:rgba(255,255,255,.75);font-size:18px;max-width:46ch;margin-inline:auto;}
+  .cta-band .cta-row{position:relative;z-index:2;margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .cta-band .btn-primary{background:#fff;color:var(--ink);}
+  .cta-band .btn-ghost{color:#fff;box-shadow:inset 0 0 0 1.6px rgba(255,255,255,.3);}
+  .cta-band .btn-ghost:hover{box-shadow:inset 0 0 0 1.6px #fff;}
+
+  /* Footer */
+  footer{padding:clamp(44px,6vw,72px) 0 40px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px;padding-bottom:34px;border-bottom:1px solid var(--line);}
+  .foot-grid .about{max-width:34ch;color:var(--muted);font-size:15px;margin-top:14px;}
+  .foot-col h4{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:14px;}
+  .foot-col a{display:block;color:var(--ink-soft);font-size:15px;padding:5px 0;transition:color .2s;}
+  .foot-col a:hover{color:var(--violet);}
+  .foot-bot{padding-top:22px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);}
+  .foot-bot .made{color:var(--ink-soft);}
+
+  /* ── Reveal-Animation ── */
+  .reveal{transition:opacity .8s var(--ease),transform .8s var(--ease);}
+  .js .reveal{opacity:0;transform:translateY(26px);}
+  .reveal.in{opacity:1;transform:none;}
+  .stagger > *{transition:opacity .7s var(--ease),transform .7s var(--ease);}
+  .js .stagger > *{opacity:0;transform:translateY(24px);}
+  .stagger.in > *{opacity:1;transform:none;}
+  .stagger.in > *:nth-child(2){transition-delay:.09s;}
+  .stagger.in > *:nth-child(3){transition-delay:.18s;}
+  .stagger.in > *:nth-child(4){transition-delay:.27s;}
+  /* Hero-Einblendung beim Laden */
+  .hero-copy > *{opacity:0;transform:translateY(22px);animation:rise .9s var(--ease) forwards;}
+  .hero-copy > *:nth-child(1){animation-delay:.1s;}
+  .hero-copy > *:nth-child(2){animation-delay:.22s;}
+  .hero-copy > *:nth-child(3){animation-delay:.34s;}
+  .hero-copy > *:nth-child(4){animation-delay:.46s;}
+  .hero-copy > *:nth-child(5){animation-delay:.58s;}
+  .stage{opacity:0;animation:rise 1s var(--ease) .3s forwards;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;} .stage{order:-1;max-width:360px;margin-bottom:8px;}
+    .grid-3,.steps,.stats,.foot-grid{grid-template-columns:1fr;}
+    .nav-links{display:none;} .burger{display:grid;}
+    .nav-links.open{display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg-2);border-bottom:1px solid var(--line);padding:10px 6vw 18px;}
+    .nav-links.open a.lnk{padding:13px 0;border-bottom:1px solid var(--line);width:100%;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto;}
+    .reveal,.stagger>*,.hero-copy>*,.stage{opacity:1!important;transform:none!important;}
+  }
+  </style>
+</head>
+<body>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav-in">
+      <a class="brand" href="#top" aria-label="CoreShift Startseite">
+        <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15 C 8 8, 14 8, 20 5"/><circle cx="20" cy="5" r="2.2" fill="#ff6a3d" stroke="none"/></svg></span>
+        CoreShift
+      </a>
+      <nav class="nav-links" id="navlinks">
+        <a class="lnk" href="#angebot">Angebot</a>
+        <a class="lnk" href="#so">So arbeite ich</a>
+        <a class="lnk" href="#stimmen">Stimmen</a>
+        <a class="lnk" href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-primary" href="#kontakt">Kennenlernen</a>
+        <button class="burger" id="burger" aria-label="Menü"><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow"><span class="dot"></span>Mental-Coaching · München</span>
+          <h1>Ganzheitliche Begleitung auf dem Weg zu deiner <span class="grad">inneren Stärke</span>.</h1>
+          <p class="lead">Mit einem individuell abgestimmten Methodenmix aus Coaching, Mentaltraining und Achtsamkeit begleite ich dich zurück in deine Kraft — für mehr Klarheit, Fokus und Gelassenheit.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#kontakt">Kostenloses Kennenlernen <span class="arr">→</span></a>
+            <a class="btn btn-ghost" href="#so">So arbeite ich</a>
+          </div>
+          <p class="assur">✦ <b>Kostenloses Erstgespräch</b> — unverbindlich, ohne Druck.</p>
+        </div>
+
+        <div class="stage" aria-hidden="true">
+          <svg class="lines" viewBox="0 0 400 400"><path d="M200 200 L70 60"/><path d="M200 200 L330 80"/><path d="M200 200 L60 330"/><path d="M200 200 L340 330"/></svg>
+          <div class="tile t-core">
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-7 7c0 2 1 3 1 5v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1c0-2 1-3 1-5a7 7 0 0 0-7-7Z"/><path d="M9 21h6"/></svg></span>
+            <span class="lab">CoreShift</span>
+            <span class="sub">Dein innerer Kern</span>
+          </div>
+          <div class="tile t1"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></span><span class="lab">Klarheit</span></div>
+          <div class="tile t2"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z"/></svg></span><span class="lab">Fokus</span></div>
+          <div class="tile t3"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1.5 3 5 4.5 5 8a5 5 0 0 1-10 0c0-3.5 3.5-5 5-8Z"/></svg></span><span class="lab">Ruhe</span></div>
+          <div class="tile t4"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4-3 7-7 9-4-2-7-5-7-9V6l7-3Z"/></svg></span><span class="lab">Stärke</span></div>
+          <div class="eyes">👀</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Vertrauen<span></span></span><span>Klarheit</span><span>Präsenz</span><span>Selbstführung</span><span>Resilienz</span><span>Balance</span>
+        <span>Vertrauen</span><span>Klarheit</span><span>Präsenz</span><span>Selbstführung</span><span>Resilienz</span><span>Balance</span>
+      </div>
+    </div>
+
+    <!-- PAIN -->
+    <section class="sec pain">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="eyebrow"><span class="dot"></span>Kennst du das?</span>
+          <h2>Von außen läuft alles — innen fehlt etwas.</h2>
+          <p>Du funktionierst, lieferst, bist für alle da. Und trotzdem meldet sich leise das Gefühl, an dir selbst vorbeizuleben. Drei Muster begegnen mir immer wieder:</p>
+        </div>
+        <div class="grid-3 stagger">
+          <div class="card"><div class="badge" style="background:rgba(255,106,61,.14)">🔥</div><h3>Erschöpft</h3><p>Du gibst ständig Gas, aber der Akku lädt nie richtig auf — abends bist du leer, aber innerlich nicht ruhig.</p></div>
+          <div class="card"><div class="badge" style="background:rgba(109,75,240,.12)">🌀</div><h3>Getrieben</h3><p>Du reagierst mehr, als du gestaltest. Das Außen bestimmt dein Tempo, nicht du.</p></div>
+          <div class="card"><div class="badge" style="background:rgba(47,195,160,.14)">🧭</div><h3>Unklar</h3><p>Du tust vieles — und spürst doch selten, ob es gerade das Richtige ist. Die klare Ausrichtung fehlt.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OFFER -->
+    <section class="sec offer" id="angebot">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="eyebrow"><span class="dot"></span>Mein Angebot</span>
+          <h2>Ein Methodenmix, individuell für dich.</h2>
+          <p>Je nach Thema kombiniere ich verschiedene Ansätze — immer abgestimmt auf das, was du gerade brauchst.</p>
+        </div>
+        <div class="grid-3 stagger">
+          <div class="card">
+            <span class="ic" style="background:linear-gradient(135deg,#6d4bf0,#9a7cf7)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg></span>
+            <h3>1:1 Mental-Coaching</h3>
+            <p>Tiefe Einzelbegleitung über mehrere Wochen — für Selbstführung, Klarheit und einen souveränen Umgang mit Druck.</p>
+            <div class="meta">Preise auf Anfrage</div>
+          </div>
+          <div class="card">
+            <span class="ic" style="background:linear-gradient(135deg,#ff6a3d,#ff4d6d)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4-3 7-7 9-4-2-7-5-7-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <h3>Mentaltraining</h3>
+            <p>Konkrete Übungen für Fokus, Resilienz und innere Ruhe — damit du auch in fordernden Momenten bei dir bleibst.</p>
+            <div class="meta">Preise auf Anfrage</div>
+          </div>
+          <div class="card">
+            <span class="ic" style="background:linear-gradient(135deg,#2fc3a0,#37b0ff)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></span>
+            <h3>Impuls-Workshops</h3>
+            <p>Halbtägige Workshops für Teams und Gruppen rund um Achtsamkeit, Selbstführung und mentale Stärke.</p>
+            <div class="meta">Preise auf Anfrage</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section class="sec" id="so">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="eyebrow"><span class="dot"></span>So arbeite ich</span>
+          <h2>In drei ruhigen Schritten.</h2>
+        </div>
+        <div class="steps stagger">
+          <div class="step"><div class="n"></div><h3>Kennenlernen</h3><p>Wir schauen in einem kostenlosen Gespräch, ob es menschlich und inhaltlich passt. Ganz ohne Druck.</p></div>
+          <div class="step"><div class="n"></div><h3>Standortbestimmung</h3><p>Wir finden heraus, worum es wirklich geht — und was du am Ende der Zusammenarbeit erreicht haben willst.</p></div>
+          <div class="step"><div class="n"></div><h3>Begleitung</h3><p>Wir arbeiten über mehrere Wochen zusammen — und ich bleibe an deiner Seite, bis das Neue trägt.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="sec" style="padding-top:0">
+      <div class="wrap">
+        <div class="stats reveal">
+          <div class="stat"><div class="num" data-count="200" data-suffix="+">0</div><div class="lbl">begleitete Menschen</div></div>
+          <div class="stat"><div class="num" data-count="2016" data-prefix="seit ">0</div><div class="lbl">im Mental-Coaching</div></div>
+          <div class="stat"><div class="num" data-count="4.9" data-suffix="★" data-dec="1">0</div><div class="lbl">aus 60 Bewertungen</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STIMMEN -->
+    <section class="sec voices" id="stimmen">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="eyebrow"><span class="dot"></span>Stimmen</span>
+          <h2>Was Menschen mitnehmen.</h2>
+        </div>
+        <div class="grid-3 stagger" style="grid-template-columns:1fr 1fr;">
+          <div class="voice">
+            <div class="stars">★★★★★</div>
+            <blockquote>„Ich hatte das Gefühl, ständig zu funktionieren. Nach ein paar Wochen treffe ich Entscheidungen wieder aus Klarheit statt aus Druck — das hat mein Leben spürbar verändert."</blockquote>
+            <div class="who"><span class="av">L</span><div><b>Lena M.</b><span>Teamleiterin</span></div></div>
+          </div>
+          <div class="voice">
+            <div class="stars">★★★★★</div>
+            <blockquote>„Sehr ruhig, sehr präsent, sehr klar. Ich fühle mich zum ersten Mal seit Langem wieder wie ich selbst — und nicht wie die Summe meiner To-dos."</blockquote>
+            <div class="who"><span class="av">T</span><div><b>Thomas K.</b><span>Selbstständig</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="sec" id="kontakt" style="padding-top:0">
+      <div class="wrap">
+        <div class="cta-band reveal">
+          <div class="blob b1" style="top:-120px;left:-80px"></div>
+          <div class="blob b2" style="top:-40px;right:-100px"></div>
+          <h2>Bereit für den ersten Schritt?</h2>
+          <p>Der einfachste Anfang: 30 Minuten, kostenlos und unverbindlich. Danach entscheidest du in Ruhe.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="mailto:hallo@coreshift-test.de">Kostenloses Kennenlernen <span class="arr">→</span></a>
+            <a class="btn btn-ghost" href="#angebot">Angebot ansehen</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <a class="brand" href="#top">
+            <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15 C 8 8, 14 8, 20 5"/><circle cx="20" cy="5" r="2.2" fill="#ff6a3d" stroke="none"/></svg></span>
+            CoreShift
+          </a>
+          <p class="about">Ganzheitliches Mental-Coaching in München — für Menschen, die viel leisten und wieder bei sich ankommen wollen.</p>
+        </div>
+        <div class="foot-col">
+          <h4>Seite</h4>
+          <a href="#angebot">Angebot</a>
+          <a href="#so">So arbeite ich</a>
+          <a href="#stimmen">Stimmen</a>
+          <a href="#kontakt">Kontakt</a>
+        </div>
+        <div class="foot-col">
+          <h4>Rechtliches</h4>
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+          <a href="mailto:hallo@coreshift-test.de">hallo@coreshift-test.de</a>
+        </div>
+      </div>
+      <div class="foot-bot">
+        <span>© <span id="jahr">2026</span> CoreShift · München</span>
+        <span class="made">🧪 Testseite von Lechcode — fiktive Marke, zum Ausprobieren des KI-Beraters</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  "use strict";
+  // Jahr
+  var j = document.getElementById("jahr"); if (j) j.textContent = new Date().getFullYear();
+
+  // Nav-Schatten beim Scrollen
+  var nav = document.getElementById("nav");
+  var onScroll = function(){ nav.classList.toggle("scrolled", window.scrollY > 8); };
+  onScroll(); window.addEventListener("scroll", onScroll, {passive:true});
+
+  // Mobile-Menü
+  var burger = document.getElementById("burger"), links = document.getElementById("navlinks");
+  if (burger) burger.addEventListener("click", function(){ links.classList.toggle("open"); });
+  links.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", function(){ links.classList.remove("open"); }); });
+
+  var reduce = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+  // Scroll-Reveals — positionsbasiert (robust; funktioniert auch bei programmatischem Scroll,
+  // und ohne JS bleibt der Inhalt dank .js-Gating sichtbar).
+  var revealEls = [].slice.call(document.querySelectorAll(".reveal,.stagger"));
+  function checkReveal(){
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    revealEls = revealEls.filter(function(el){
+      var r = el.getBoundingClientRect();
+      if (r.top < vh * 0.9 && r.bottom > 0){
+        el.classList.add("in");
+        if (el.querySelectorAll("[data-count]").length) startCount(el);
+        return false;
+      }
+      return true;
+    });
+  }
+  if (reduce){ revealEls.forEach(function(el){ el.classList.add("in"); startCount(el); }); }
+  else { checkReveal(); window.addEventListener("scroll", checkReveal, {passive:true}); window.addEventListener("resize", checkReveal); }
+
+  // Zähl-Animation
+  function startCount(scope){
+    scope.querySelectorAll("[data-count]").forEach(function(el){
+      if (el.dataset.done) return; el.dataset.done = "1";
+      var ziel = parseFloat(el.dataset.count), dec = parseInt(el.dataset.dec||"0",10);
+      var pre = el.dataset.prefix||"", suf = el.dataset.suffix||"";
+      if (reduce){ el.textContent = pre + ziel.toFixed(dec) + suf; return; }
+      var start = null, dur = 1400;
+      function frame(t){
+        if (!start) start = t;
+        var p = Math.min((t-start)/dur, 1), eased = 1-Math.pow(1-p,3);
+        el.textContent = pre + (ziel*eased).toFixed(dec) + suf;
+        if (p<1) requestAnimationFrame(frame); else el.textContent = pre + ziel.toFixed(dec) + suf;
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+})();
+</script>
+</body>
+</html>
