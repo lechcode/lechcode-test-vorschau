@@ -1,5 +1,18 @@
 # Änderungen
 
+## 2026-07-13 — Cache-Test: Hero-Eyebrow „& Online" wieder entfernt
+
+**Kundenwunsch (wörtlich):**
+> Cache-Test: Eyebrow oben wieder auf nur MENTAL-COACHING - MUENCHEN (ohne Online)
+> Strukturiert:
+> - Hero Eyebrow: Eyebrow-Text zurueck auf Mental-Coaching Muenchen ohne Zusatz
+
+**Prüfbare Kriterien:**
+- `index.html`, Hero-Eyebrow (`.eyebrow` in `.hero`): Text lautet exakt „Mental-Coaching · München" (Mittelpunkt und Umlaut beibehalten, kein „& Online" mehr).
+- Andere Eyebrows und Meta-Texte bleiben unverändert (nur die Hero-Pille war betroffen).
+
+- [x] umgesetzt
+
 ## 2026-07-13 — Hero-Eyebrow um „& Online" ergänzt
 
 **Kundenwunsch (wörtlich):**
