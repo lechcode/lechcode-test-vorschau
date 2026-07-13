@@ -1,6 +1,6 @@
 # QA-Report: lechcode-test
 
-**Gesamtampel: 🟡 GELB** · 0 rot / 9 gelb / 7 grün · 13.07.2026 00:47 · Dauer 18 s · lc-qa.py
+**Gesamtampel: 🟡 GELB** · 0 rot / 11 gelb / 5 grün · 13.07.2026 10:54 · Dauer 63 s · lc-qa.py
 
 ## 5-Minuten-Abnahme (Mensch)
 1. Alle 🔴 unten abgearbeitet? 2. Screenshots in `qa-shots/` überflogen — „würde ich das verschicken?"
@@ -18,7 +18,12 @@
 - **impressum.html nicht verlinkt von**: datenschutz.html, mein-bereich.html, onboarding.html
 - **datenschutz.html nicht verlinkt von**: impressum.html, mein-bereich.html, onboarding.html
 - **ASSETS-LIZENZEN.md fehlt**: ab v2.0 Pflicht — Altprojekt? Foto-Rechte-Ampel nachziehen
-- **iOS-Zoom mein-bereich.html**: 2 Eingabefeld(er) mit font-size < 16px
+- **Lighthouse**: Lauf fehlgeschlagen: untered: Chrome prevented page load with an interstitial. Make sure you are testing the correct URL and that the server is properly responding to all requests.
+
+- **Playwright-Lauf**: page.goto: net::ERR_CONNECTION_TIMED_OUT at http://localhost:62381/datenschutz.html
+Call log:
+  - navigating to "http://localhost:62381/datenschutz.html", waiti
+- **Playwright**: 
 
 ## 🟢 GRÜN
 - **Interne Links & Assets**: alle Verweise in 5 Seiten existieren
@@ -26,5 +31,3 @@
 - **OG-Tags**: index/vorschau vollständig
 - **Grep-Fallen & noindex**: clamp/calc sauber, noindex gesetzt
 - **Bild-Budget**: kein Einzelbild > 250 KB
-- **Burger-Menü index.html**: öffnet, navigiert, schließt
-- **Playwright-Screenshots**: 5 Seiten × 3 Breiten → qa-shots/
