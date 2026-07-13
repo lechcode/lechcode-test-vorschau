@@ -1,5 +1,20 @@
 # Änderungen
 
+## 2026-07-13 — Neupositionierung: Hero + „Kennst du das?" auf Beziehungs-/Selbstwert-Thema
+
+**Kundenwunsch (wörtlich):**
+> Hauptüberschrift (Hero-Bereich, aktuell 'Ganzheitliche Begleitung auf dem Weg zu deiner inneren Stärke.'): Ersetzen durch: Überschrift 'Du gibst in deiner Beziehung ständig dein Bestes — und fühlst dich trotzdem nie gut genug.' mit Unterzeile 'Ich begleite dich zurück zu echter Selbstsicherheit — damit du aus innerer Ruhe heraus liebst, statt aus Angst, nicht genug zu sein.'
+> Abschnitt 'Kennst du das?' mit den drei Mustern (aktuell 'Erschöpft', 'Getrieben', 'Unklar'): Ersetzen durch: Einleitungssatz 'Von außen läuft die Beziehung — innen fühlst du dich trotzdem nie ganz sicher.' und drei Karten: 1) 'Nicht genug' – 'Du gibst dein Bestes, kümmerst dich, passt dich an — und trotzdem bleibt das Gefühl, nicht wirklich zu genügen.' 2) 'Angespannt' – 'Du wartest innerlich auf den nächsten Moment, in dem du enttäuschst. Das Außen bestimmt, wie sicher du dich fühlst, nicht du selbst.' 3) 'Unsicher' – 'Du zweifelst oft, ob das, was du tust oder fühlst, richtig ist. Die innere Sicherheit fehlt.'
+
+**Prüfbare Kriterien:**
+- `index.html`, Hero-`h1`: exakt „Du gibst in deiner Beziehung ständig dein Bestes — und fühlst dich trotzdem nie gut genug." (Gradient-Highlight bewusst auf „nie gut genug" gesetzt — analog zur bisherigen `<span class="grad">`-Design-Sprache).
+- `index.html`, Hero-`p.lead`: exakt „Ich begleite dich zurück zu echter Selbstsicherheit — damit du aus innerer Ruhe heraus liebst, statt aus Angst, nicht genug zu sein."
+- `index.html`, Sektion `.pain` (Eyebrow „Kennst du das?"): neuer `h2` ist der Einleitungssatz „Von außen läuft die Beziehung — innen fühlst du dich trotzdem nie ganz sicher."; der bisherige erläuternde Absatz wurde entfernt (der Kunde beschreibt die Sektion nur noch als „Einleitungssatz + drei Karten").
+- Drei Karten ersetzt: „Nicht genug" / „Angespannt" / „Unsicher" mit den vom Kunden vorgegebenen Texten (wortgleich). Badge-Farben aus dem Original beibehalten, Emoji der ersten Karte auf 💭 (Grübeln/Selbstzweifel) statt 🔥 gesetzt, weil das alte 🔥 zum neuen Thema „Nicht genug" nicht mehr passt.
+- Meta-Description, OG-Description, Footer-About und `og.svg` sprechen weiterhin vom Angebot („Ganzheitliches Mental-Coaching in München") — der Kunde hat diese Stellen nicht beauftragt, deshalb unangetastet (analog zum vorigen Änderungsblock).
+
+- [x] umgesetzt
+
 ## 2026-07-13 — Cache-Test: Hero-Eyebrow „& Online" wieder entfernt
 
 **Kundenwunsch (wörtlich):**
