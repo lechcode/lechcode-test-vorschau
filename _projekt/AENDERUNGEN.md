@@ -1,5 +1,24 @@
 # Änderungen
 
+## 2026-07-15 — Neue Sektion „Mein Ort": Landsberg-am-Lech-Bild eingebaut
+
+**Kundenwunsch (wörtlich):**
+> bau bitte das bild ein und schreib dazu dass landsberg am lech die location ist von wo aus ich arbeite
+
+**Datei:** `uploads/eingang/landsberg-am-lech-tipps-mrlxnbtj.jpg` (bild, „landsberg-am-lech-tipps.jpg")
+
+**Prüfbare Kriterien:**
+- `index.html`: neue Sektion `#ort` zwischen „So arbeite ich" (`#so`) und dem Stats-Block eingefügt. Zwei-Spalten-Layout (Bild links, Text rechts), Reveal-Animation wie bei den anderen Sektionen, Design-Tokens des Bestands (r-lg, shadow, eyebrow, .grad).
+- Bild referenziert direkt den Upload-Pfad `uploads/eingang/landsberg-am-lech-tipps-mrlxnbtj.jpg` (Datei bewusst nicht verschoben — das System sortiert das Asset später ein), `alt` beschreibt Ort & Rolle, `loading="lazy"` wie im Bestand.
+- Kein Text/Overlay über dem Bild (Hero-Regel), object-fit:cover, aspect-ratio 4/3.
+- Neue Styles unter `/* Ort */` im bestehenden `<style>`-Block; unter 900 px Einspalten-Layout (analog Hero).
+- Bewusst unangetastet: Hero-Eyebrow „Mental-Coaching · München", Meta-/OG-Description, Footer-About — der Kunde hat die Standort-Aussagen dort nicht beauftragt, das bleibt konsistent mit den vorigen Änderungsblöcken. Der Text der neuen Sektion nennt zusätzlich „online für alle, die weiter weg sind", damit die Aussage kompatibel zum bestehenden München-Auftritt bleibt.
+
+**Offen — Team:**
+- (nichts offen)
+
+- [x] umgesetzt
+
 ## 2026-07-13 — Neupositionierung: Hero + „Kennst du das?" auf Beziehungs-/Selbstwert-Thema
 
 **Kundenwunsch (wörtlich):**
