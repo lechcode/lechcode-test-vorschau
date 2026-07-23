@@ -30,7 +30,8 @@
     --focus:0 0 0 3px rgba(232,146,63,.45);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  body{background:var(--night);color:var(--bone);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100dvh;}
+  html{overflow-x:clip;}
+  body{background:var(--night);color:var(--bone);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100dvh;overflow-x:clip;-webkit-text-size-adjust:100%;max-width:100%;}
   h1,h2,h3{line-height:1.2;letter-spacing:-.02em;color:#241d12;text-wrap:balance;}
   a{color:var(--ember);text-decoration:underline;text-underline-offset:3px;}
   img,svg{display:block;max-width:100%;}
@@ -87,7 +88,7 @@
   .msg-avatar{flex:none;width:28px;height:28px;border-radius:50%;background:var(--panel-2);
     border:1px solid rgba(231,185,100,.3);display:grid;place-items:center;margin-bottom:2px;}
   .msg-avatar svg{width:17px;height:17px;color:var(--gold);}
-  .msg{padding:11px 15px;border-radius:16px;font-size:15px;line-height:1.55;white-space:pre-wrap;overflow-wrap:break-word;}
+  .msg{padding:11px 15px;border-radius:16px;font-size:15px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere;}
   .msg-row .msg{min-width:0;}
   .msg.ki{align-self:flex-start;background:var(--panel-2);color:var(--bone);border-bottom-left-radius:5px;}
   .msg.du{align-self:flex-end;max-width:min(78%,480px);
@@ -97,7 +98,7 @@
   .tipp.an{display:block;}
 
   /* Composer — ein zusammenhängendes Eingabefeld (wie die Aufnahme-Leiste) */
-  .chat-eingabe{display:flex;}
+  .chat-eingabe{display:flex;flex-direction:column;gap:8px;}
   .composer{flex:1;min-width:0;display:flex;align-items:flex-end;gap:4px;background:var(--night-2);
     border:1px solid rgba(231,185,100,.22);border-radius:18px;padding:6px 6px 6px 6px;
     transition:border-color .2s,box-shadow .2s;}
@@ -113,6 +114,25 @@
   .composer-send:focus-visible{outline:none;box-shadow:var(--focus);}
   .composer-send[disabled]{opacity:.4;cursor:default;transform:none;}
   .composer-send svg{width:19px;height:19px;}
+  /* Datei im Chat: Büroklammer im Composer + Anhang-Leiste + Datei-Bubble */
+  .lc-attach{flex:none;width:40px;height:40px;border-radius:50%;border:none;background:transparent;color:var(--gold);display:grid;place-items:center;cursor:pointer;transition:color .2s,background .2s;}
+  .lc-attach:hover{color:var(--ember);background:rgba(231,185,100,.09);}
+  .lc-attach:focus-visible{outline:none;box-shadow:var(--focus);}
+  .lc-attach svg{width:20px;height:20px;}
+  .chat-anhang{display:none;align-items:center;gap:11px;padding:8px 10px;border:1px solid var(--line);border-radius:14px;background:var(--night-2);}
+  .chat-anhang.an{display:flex;}
+  .chat-anhang img{width:46px;height:46px;object-fit:cover;border-radius:9px;border:1px solid var(--line);flex:none;}
+  .chat-anhang .ah-ic{width:46px;height:46px;border-radius:9px;border:1px solid var(--line);background:var(--panel);display:grid;place-items:center;font-size:22px;flex:none;}
+  .chat-anhang .ah-meta{min-width:0;flex:1;display:flex;flex-direction:column;line-height:1.3;}
+  .chat-anhang .ah-name{font-size:14px;color:var(--bone);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .chat-anhang .ah-size{font-size:12px;color:var(--muted);}
+  .chat-anhang .ah-x{flex:none;width:28px;height:28px;border-radius:50%;border:none;background:transparent;color:var(--muted);cursor:pointer;font-size:16px;display:grid;place-items:center;}
+  .chat-anhang .ah-x:hover{background:rgba(255,255,255,.06);color:var(--bone);}
+  .chat-eingabe-zeile.zieht .composer{border-color:var(--amber);box-shadow:0 0 0 3px rgba(232,146,63,.13);}
+  .msg.datei{display:flex;flex-direction:column;gap:7px;}
+  .msg.datei img{max-width:220px;width:100%;border-radius:11px;border:1px solid rgba(255,255,255,.14);display:block;}
+  .msg.datei .d-chip{display:flex;align-items:center;gap:9px;}
+  .msg.datei .d-chip .d-ic{font-size:22px;flex:none;}
   .chat-tools{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px;color:var(--muted);font-size:13px;}
   .chat-tools .btn-ghost{font-size:14px;padding:9px 18px;white-space:nowrap;}
   .chat-verlauf::-webkit-scrollbar{width:8px;}
@@ -206,8 +226,8 @@
   .lc-rec-dot{width:11px;height:11px;border-radius:50%;background:var(--amber);flex:none;animation:lc-pulse 1.4s infinite;}
   @keyframes lc-pulse{0%{box-shadow:0 0 0 0 rgba(232,146,63,.55)}70%{box-shadow:0 0 0 9px rgba(232,146,63,0)}100%{box-shadow:0 0 0 0 rgba(232,146,63,0)}}
   .lc-rec-time{font-family:var(--mono);font-size:13px;color:var(--bone-dim);flex:none;min-width:36px;font-variant-numeric:tabular-nums;}
-  .lc-rec-wave{flex:1;display:flex;align-items:center;gap:3px;height:26px;overflow:hidden;}
-  .lc-rec-wave i{flex:1;min-width:2px;max-width:6px;height:10%;background:linear-gradient(180deg,var(--ember),var(--amber));border-radius:2px;transition:height .07s linear;}
+  .lc-rec-wave{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:3px;height:26px;overflow:hidden;}
+  .lc-rec-wave i{flex:none;width:3px;height:8%;background:linear-gradient(180deg,var(--ember),var(--amber));border-radius:2px;transition:height .09s ease;}
   .lc-rec-btn{flex:none;width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;display:grid;place-items:center;font-size:16px;line-height:1;}
   .lc-rec-cancel{background:transparent;color:var(--bone-dim);border:1px solid rgba(231,185,100,.22);}
   .lc-rec-cancel:hover{color:#f0b090;}
@@ -225,7 +245,45 @@
   .lc-vtext.warten{color:var(--bone-dim);font-style:italic;}
   .lc-vtext .lc-mini{opacity:.6;margin-right:5px;}
   @media (prefers-reduced-motion:reduce){.lc-rec-dot{animation:none;}.lc-rec-wave i,.lc-vwave i{transition:none;}}
-  @media (max-width:640px){ .vorschau img,.datei-chip{width:100%;} }
+  @media (max-width:640px){
+    .chat-verlauf{max-height:min(62vh,460px);}   /* handlicher: nutzt mehr Höhe, weniger „kleines Fenster im großen Scroll“ */
+    .msg-row{max-width:100%;}
+    .msg.du{max-width:82%;}
+    .msg.datei img{max-width:min(220px,72vw);}
+    .lc-vwave{overflow:hidden;}
+    #gruss-titel{font-size:clamp(26px,7vw,34px);}
+  }
+
+  /* ===== Umzugs-Assistent (Domain verbinden) ===== */
+  .umzug-intro{color:var(--bone-dim);font-size:14.5px;margin-bottom:14px;}
+  .umzug-feld{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch;margin-bottom:4px;}
+  .umzug-feld input{flex:1;min-width:200px;border:1px solid var(--line);background:var(--panel);color:var(--bone);font-family:var(--sans);font-size:16px;border-radius:12px;padding:11px 14px;}
+  .umzug-feld input:focus-visible{outline:none;box-shadow:var(--focus);}
+  .umzug-hinweis{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.5;}
+  .umzug-box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin:12px 0;font-size:14.5px;line-height:1.6;}
+  .umzug-box.gut{border-color:rgba(122,162,89,.5);background:rgba(122,162,89,.10);}
+  .umzug-box.warm{border-color:rgba(232,146,63,.4);background:rgba(232,146,63,.09);}
+  .umzug-box b{color:var(--gold);}
+  .stepper{list-style:none;display:grid;gap:0;margin:8px 0 4px;padding:0;}
+  .stepper li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:12px;padding:0 0 18px;position:relative;}
+  .stepper li::before{content:"";position:absolute;left:12px;top:26px;bottom:0;width:2px;background:var(--line);}
+  .stepper li:last-child::before{display:none;}
+  .stepper .st-punkt{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);background:var(--night-2);display:grid;place-items:center;font-size:13px;color:var(--muted);z-index:1;}
+  .stepper li.fertig .st-punkt{background:var(--gruen);border-color:var(--gruen);color:#1c2413;}
+  .stepper li[aria-current="step"] .st-punkt{background:var(--amber);border-color:var(--amber);color:#2a1808;}
+  .stepper .st-inhalt{padding-top:2px;min-width:0;}
+  .stepper .st-titel{font-weight:600;font-size:15px;}
+  .stepper li:not([aria-current="step"]):not(.fertig) .st-inhalt{opacity:.5;}
+  .stepper .st-detail{margin-top:8px;font-size:14px;color:var(--bone-dim);line-height:1.6;}
+  .ns-liste{display:grid;gap:8px;margin:10px 0;}
+  .ns-zeile{display:flex;align-items:center;gap:8px;background:var(--night-2);border:1px solid var(--line);border-radius:12px;padding:7px 8px 7px 12px;}
+  .ns-zeile code{flex:1;min-width:0;font-family:var(--mono);font-size:15px;color:var(--bone);user-select:all;overflow:auto;white-space:nowrap;}
+  .ns-copy{flex:none;border:1px solid var(--line);background:transparent;color:var(--gold);cursor:pointer;font-size:13px;padding:6px 11px;border-radius:9px;font-family:var(--sans);}
+  .ns-copy:hover{background:rgba(231,185,100,.12);color:var(--ember);}
+  .ns-copy:focus-visible{outline:none;box-shadow:var(--focus);}
+  .umzug-schritte{margin:10px 0 4px;padding-left:20px;font-size:14px;color:var(--bone-dim);line-height:1.6;}
+  .umzug-schritte li{margin-bottom:6px;}
+  .umzug-schritte .sub{display:block;color:var(--muted);font-size:12.5px;font-family:var(--mono);margin-top:2px;word-break:break-word;}
   </style>
 </head>
 <body>
@@ -237,13 +295,19 @@
     </div>
   </header>
 
-  <!-- Zugang fehlt -->
+  <!-- Login (passwortlos, per E-Mail-Link) -->
   <div class="vollbild" id="kein-zugang">
     <div class="inhalt">
       <div class="zeichen">🔑</div>
-      <h1 style="font-size:22px;">Dein persönlicher Link fehlt</h1>
-      <p style="color:var(--bone-dim);font-size:15px;">Diesen Bereich öffnest du über deinen persönlichen Zugangslink — den haben wir dir per E-Mail geschickt. Nicht zur Hand? Schreib uns kurz, wir schicken sofort einen neuen.</p>
-      <a class="btn" href="mailto:info@lechcode.de?subject=Neuer%20Zugangslink">Neuen Link anfordern</a>
+      <h1 style="font-size:22px;">Anmelden</h1>
+      <p style="color:var(--bone-dim);font-size:15px;">Gib deine E-Mail-Adresse ein — wir schicken dir einen Login-Link. So kommst nur du in deinen Bereich, sonst niemand.</p>
+      <form id="login-form" style="display:flex;flex-direction:column;gap:10px;max-width:340px;margin:4px auto 0;">
+        <input id="login-email" type="email" required autocomplete="email" inputmode="email" placeholder="deine@email.de"
+          style="border:1px solid var(--line);background:var(--panel);color:var(--bone);font-family:var(--sans);font-size:16px;border-radius:12px;padding:12px 14px;width:100%;box-sizing:border-box;">
+        <button class="btn" type="submit" id="login-btn">Login-Link schicken</button>
+      </form>
+      <p id="login-status" role="status" aria-live="polite" style="min-height:20px;color:var(--bone-dim);font-size:14px;margin-top:12px;"></p>
+      <p style="color:var(--bone-dim);font-size:13px;margin-top:2px;">Kein Zugang mehr? Schreib uns: <a href="mailto:info@lechcode.de" style="color:inherit;">info@lechcode.de</a></p>
     </div>
   </div>
 
@@ -280,6 +344,12 @@
       <div id="erledigt-wrap"></div>
     </section>
 
+    <section class="karte" id="umzug-karte" style="display:none;">
+      <h2>Deine Domain verbinden 🌐</h2>
+      <p class="unter">Schalte deine Wunsch-Adresse in wenigen einfachen Schritten live — deine E-Mails bleiben dabei sicher. Bei jeder Frage sind wir da.</p>
+      <div id="umzug-inhalt"></div>
+    </section>
+
     <section class="karte">
       <h2>Dein KI-Berater 💬</h2>
       <p class="unter">Frag mich alles rund um deine Website, deine Texte und wie du besser gefunden wirst — oder sag mir einfach, was ich für dich ändern soll.</p>
@@ -287,11 +357,16 @@
       <div class="chat-verlauf" id="chat-verlauf"></div>
       <p class="tipp" id="tipp">… schreibt</p>
       <div class="chat-eingabe" id="chat-eingabe-zeile">
+        <div class="chat-anhang" id="chat-anhang" aria-live="polite"></div>
         <div class="composer" id="composer">
+          <input type="file" id="chat-datei" accept="image/*,.pdf,.doc,.docx,.txt,.rtf,.csv,.ppt,.pptx,.xls,.xlsx,.svg,.heic" style="display:none">
+          <button class="lc-attach" id="chat-attach" type="button" aria-label="Datei anhängen" title="Datei anhängen (Bild, PDF, Dokument)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          </button>
           <button class="lc-mic" id="chat-mic" type="button" aria-label="Sprachnachricht aufnehmen" title="Sprachnachricht aufnehmen">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/></svg>
           </button>
-          <textarea id="chat-eingabe" rows="1" placeholder="Schreib oder sprich …" aria-label="Nachricht an deinen Berater"></textarea>
+          <textarea id="chat-eingabe" rows="1" placeholder="Schreib, sprich oder häng was an …" aria-label="Nachricht an deinen Berater"></textarea>
           <button class="composer-send" id="chat-senden" type="button" aria-label="Senden">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12h13M13 6l6 6-6 6"/></svg>
           </button>
@@ -308,29 +383,6 @@
       </div>
     </section>
 
-    <section class="karte">
-      <h2>Dateien hochladen 📎</h2>
-      <p class="unter">Bilder, PDFs oder andere Dateien für deine Seite — leg sie hier ab und sag kurz, was damit passieren soll.</p>
-      <label class="drop" id="drop">
-        <input type="file" id="datei" accept="image/*,.pdf,.doc,.docx,.txt,.rtf,.csv,.ppt,.pptx,.xls,.xlsx,.svg,.heic">
-        <div class="gross">Datei auswählen oder hierher ziehen</div>
-        <div class="klein">Bilder, PDF &amp; Dokumente · bis 12 MB · bitte nur Dateien, die auf die Website dürfen</div>
-      </label>
-      <div class="vorschau" id="vorschau">
-        <img id="vorschau-bild" alt="Vorschau deiner Datei">
-        <div class="datei-chip" id="datei-chip">
-          <span class="datei-icon" id="datei-icon">📄</span>
-          <span class="datei-meta"><span id="datei-name"></span><small id="datei-groesse"></small></span>
-        </div>
-        <div class="rechts">
-          <label class="feld-label" for="anweisung">Was sollen wir mit dieser Datei machen?</label>
-          <textarea id="anweisung" rows="2" placeholder="z. B. „als großes Bild ganz oben auf die Startseite“, „als PDF-Download unter Angebote verlinken“ oder „ersetzt das aktuelle Team-Foto“"></textarea>
-          <button class="btn" id="hochladen">Hochladen →</button>
-        </div>
-      </div>
-      <p class="upload-status" id="upload-status"></p>
-    </section>
-
     <section class="karte faq">
       <h2>Häufige Fragen</h2>
       <details><summary>Was kostet eine Änderung?</summary><p>Nichts extra — kleine Änderungen sind in deiner Pflege (19 €/Monat) einfach drin. Schreib so oft du magst.</p></details>
@@ -345,14 +397,14 @@
   <footer>
     <div class="wrap">
       <span>lech<span style="color:var(--gold);font-family:var(--mono);">code</span> · Code mit Seele · Landsberg am Lech</span>
-      <span><a href="mailto:info@lechcode.de">info@lechcode.de</a></span>
+      <span><a href="mailto:info@lechcode.de">info@lechcode.de</a> · <a href="#" id="lc-abmelden" style="color:var(--bone-dim);display:none;">Abmelden</a></span>
     </div>
   </footer>
 
 <script>
 (function(){
   "use strict";
-  var LC_API = "https://lechcode-api.nameless-waterfall-55e5.workers.dev"; /* LC-API-URL — wird von lechcode-plattform/bin/set-api-url.sh gesetzt */
+  var LC_API = "https://lechcode-api.nameless-waterfall-55e5.workers.dev"; /* LC-API-URL — wird von plattform/bin/set-api-url.sh gesetzt */
 
   var STATUS_TEXT = { pending:"empfangen", claimed:"wird gebaut", running:"wird gebaut", qa:"Qualitätsprüfung", approved:"wird gebaut", done:"live ✓", failed:"wir schauen persönlich drauf", rejected:"wir schauen persönlich drauf" };
   var SCHRITTE = ["empfangen","wird gebaut","Qualitätsprüfung","live ✓"];
@@ -385,7 +437,7 @@
   // (damit der Erledigt-Bereich einmalig aufklappt und den „live"-Moment zeigt).
   function pruefeNeuErledigt(jobs){
     var jetzt = {}, neu = false;
-    (jobs || []).forEach(function(job){ if (job && job.status === "done") jetzt[job.id] = true; });
+    (jobs || []).forEach(function(job){ if (job && job.status === "done" && job.type !== "domain-selfservice") jetzt[job.id] = true; });
     if (doneGesehen){
       neu = Object.keys(jetzt).some(function(id){ return !doneGesehen[id]; });
       if (neu){
@@ -411,6 +463,22 @@
   // Alte, unscoped Schlüssel wegräumen (verhindert Alt-Leaks aus früheren Versionen).
   try { localStorage.removeItem("lc-zugang"); localStorage.removeItem("lc-opener-done"); } catch(e){}
 
+  // — Magic-Link-Login: ?login=<code> → 30-Tage-Session holen, dann sauber neu laden —
+  var loginCode = ((location.search || "").match(/[?&]login=([A-Za-z0-9]+)/) || [])[1];
+  if (loginCode){
+    fetch(LC_API + "/auth/verify", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify({ code: loginCode }) })
+      .then(function(r){ return r.json().catch(function(){ return {}; }); })
+      .then(function(j){
+        try {
+          if (j && j.ok && j.token){ localStorage.setItem(nsKey("lc-zugang"), j.token); }
+          else { sessionStorage.setItem("lc-login-fehler", "1"); }
+        } catch(e){}
+      })
+      .catch(function(){ try { sessionStorage.setItem("lc-login-fehler", "1"); } catch(e){} })
+      .then(function(){ location.replace(location.pathname); }); // Query weg, frisch initialisieren
+    return;
+  }
+
   // — Token: aus #k=… übernehmen, pro Kunde sichern, URL säubern —
   var token = "";
   var m = (location.hash || "").match(/[#&]k=([A-Za-z0-9]+)/);
@@ -420,7 +488,31 @@
 
   var app = document.getElementById("app");
   var keinZugang = document.getElementById("kein-zugang");
-  function zeigeKeinZugang(){ keinZugang.classList.add("an"); app.style.display = "none"; }
+  var loginGewired = false;
+  function loginWiren(){
+    if (loginGewired) return; loginGewired = true;
+    var form = document.getElementById("login-form");
+    var statusEl = document.getElementById("login-status");
+    try { if (sessionStorage.getItem("lc-login-fehler")){ sessionStorage.removeItem("lc-login-fehler");
+      if (statusEl) statusEl.textContent = "Der Link war abgelaufen oder schon benutzt. Fordere dir einfach einen neuen an."; } } catch(e){}
+    if (!form) return;
+    form.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var email = (document.getElementById("login-email").value || "").trim();
+      var btn = document.getElementById("login-btn");
+      if (!email) return;
+      if (btn){ btn.disabled = true; btn.textContent = "Wird gesendet …"; }
+      fetch(LC_API + "/auth/request", { method:"POST", headers:{"content-type":"application/json"},
+        body: JSON.stringify({ email: email, ruecklink: location.origin + location.pathname }) })
+        .catch(function(){})
+        .then(function(){
+          // Immer dieselbe Antwort — verrät nicht, ob die Adresse hinterlegt ist.
+          if (statusEl) statusEl.textContent = "Wenn diese Adresse bei uns hinterlegt ist, ist dein Login-Link jetzt unterwegs. Schau in dein Postfach (auch im Spam).";
+          if (btn){ btn.disabled = false; btn.textContent = "Login-Link schicken"; }
+        });
+    });
+  }
+  function zeigeKeinZugang(){ keinZugang.classList.add("an"); app.style.display = "none"; loginWiren(); }
   if (!token){ zeigeKeinZugang(); return; }
 
   function api(pfad, opts){
@@ -428,6 +520,19 @@
     opts.headers = Object.assign({"authorization":"Bearer " + token}, opts.headers || {});
     return fetch(LC_API + pfad, opts);
   }
+
+  // — Abmelden (Session beenden — wichtig am fremden/geteilten Rechner) —
+  (function(){
+    var ab = document.getElementById("lc-abmelden");
+    if (!ab) return;
+    ab.style.display = "inline";
+    ab.addEventListener("click", function(ev){
+      ev.preventDefault();
+      try { api("/auth/logout", { method:"POST" }); } catch(e){}
+      try { localStorage.removeItem(nsKey("lc-zugang")); } catch(e){}
+      location.replace(location.pathname);
+    });
+  })();
 
   // — Status laden + Polling —
   var kundenName = "", anrede = "", letzteSignatur = null, schnellVersuche = 0, begruesstGesetzt = false;
@@ -452,6 +557,7 @@
       }
       var jobs = j.jobs || [];
       var neuErledigt = pruefeNeuErledigt(jobs);
+      try { umzugLetzteJobs = jobs; umzugAktualisieren(jobs); } catch(e){}
       // Nur neu rendern, wenn sich wirklich etwas geändert hat (verhindert 30-s-Flackern
       //   und Aufklapp-/Fokus-Sprünge). „lang" fängt die zeitbasierte Hänge-Meldung mit ein.
       var sig = jobs.map(function(x){
@@ -583,6 +689,7 @@
     var aktive = [], probleme = [], erledigt = [];
     (jobs || []).forEach(function(job){
       if (!job) return;
+      if (job.type === "domain-selfservice") return; // eigener Stepper (Umzugs-Assistent), nicht in der Job-Liste
       if (job.status === "done") erledigt.push(job);
       else if (schrittIndex(job.status) < 0) probleme.push(job); // failed/rejected → „wir melden uns"
       else aktive.push(job); // in Arbeit (pending/claimed/running/qa/approved)
@@ -621,6 +728,244 @@
       erlWrap.appendChild(det);
     }
   }
+  // ===== Umzugs-Assistent: „Deine Domain verbinden" (Nameserver-Delegation zu INWX) =====
+  // Der Kunde führt den Umzug selbst; die Ausführung (INWX-Zone + GitHub-Pages + Mail-Spiegelung)
+  // macht der Runner voll-auto. Fixe Nameserver → kein Warten auf Werte, Go-Live erkennt das
+  // Dashboard selbst per /domain-check-Nachpoll. Zustand pro Kunde in localStorage (nsKey).
+  var umzugSig = null, umzugChecking = false, umzugLetzteJobs = [];
+  function umzugDomain(){ try { return localStorage.getItem(nsKey("umzug-domain")) || ""; } catch(e){ return ""; } }
+  function umzugNsOk(){ try { return localStorage.getItem(nsKey("umzug-ns-ok")) === "1"; } catch(e){ return false; } }
+  function umzugIstLive(){ try { return localStorage.getItem(nsKey("umzug-live")) === "1"; } catch(e){ return false; } }
+  function ansage(text){ var an = document.getElementById("lc-ansage"); if (an) an.textContent = text; }
+
+  function umzugAktualisieren(jobs){
+    var karte = document.getElementById("umzug-karte"), box = document.getElementById("umzug-inhalt");
+    if (!karte || !box) return;
+    umzugLetzteJobs = jobs || [];
+    karte.style.display = "";
+    var job = (jobs || []).filter(function(x){ return x && x.type === "domain-selfservice"; })
+                          .sort(function(a,b){ return a.id < b.id ? 1 : -1; })[0] || null;
+    // Läuft ein echter Umzug, ist der „Sonderfall"-Merker hinfällig.
+    if (job){ try { localStorage.removeItem(nsKey("umzug-mensch")); } catch(e){} }
+    var menschGrund = null; if (!job){ try { menschGrund = localStorage.getItem(nsKey("umzug-mensch")); } catch(e){} }
+    var phase = job ? (job.phase || "vorbereitet") : (menschGrund ? "mensch-statisch" : "start");
+    if (job && job.domain){ try { if (umzugDomain() !== job.domain) localStorage.setItem(nsKey("umzug-domain"), job.domain); } catch(e){} }
+    var dom = (job && job.domain) || umzugDomain();
+    // Go-Live-Erkennung: sobald der Kunde die NS bestätigt hat und noch nicht live.
+    if (!umzugIstLive() && job && phase === "nameserver" && umzugNsOk() && dom) umzugGoLiveCheck(dom);
+    var sig = (job ? job.id : "-") + ":" + phase + ":" + (umzugIstLive() ? "L" : "") + ":" + (umzugNsOk() ? "N" : "");
+    if (sig === umzugSig) return; // kein echter Zustandswechsel → nicht neu rendern (kein Flackern)
+    umzugSig = sig;
+    box.innerHTML = "";
+    if (umzugIstLive()){ umzugRenderLive(box, dom); return; }
+    if (phase === "start"){ umzugRenderStart(box); return; }
+    if (phase === "mensch-statisch"){ umzugRenderMenschStatisch(box, menschGrund); return; }
+    if (phase === "mensch_uebernimmt"){ umzugRenderMensch(box, job); return; }
+    if (phase === "nameserver"){ umzugRenderNameserver(box, job, dom); return; }
+    umzugRenderVorbereitet(box); // Job da, aber Runner noch nicht durch
+  }
+  function umzugNeuRendern(){ umzugSig = null; umzugAktualisieren(umzugLetzteJobs); }
+
+  function normDomain(roh){
+    return (roh || "").trim().toLowerCase()
+      .replace(/^https?:\/\//, "").replace(/\/.*$/, "").replace(/^www\./, "").replace(/\.$/, "");
+  }
+
+  function umzugRenderStart(box){
+    var wrap = document.createElement("div");
+    var intro = document.createElement("p"); intro.className = "umzug-intro";
+    intro.textContent = "Gib deine Wunsch-Adresse ein — ich prüfe kurz, wie sie eingerichtet ist. Deine E-Mails rühre ich dabei nicht an.";
+    wrap.appendChild(intro);
+    var feld = document.createElement("div"); feld.className = "umzug-feld";
+    var inp = document.createElement("input"); inp.type = "text"; inp.placeholder = "z. B. meine-praxis.de"; inp.setAttribute("aria-label", "Deine Domain");
+    inp.value = umzugDomain();
+    var btn = document.createElement("button"); btn.className = "btn"; btn.type = "button"; btn.textContent = "Domain prüfen";
+    feld.appendChild(inp); feld.appendChild(btn); wrap.appendChild(feld);
+    var out = document.createElement("div"); wrap.appendChild(out);
+    function los(){ umzugPruefen(inp.value, out, btn); }
+    btn.addEventListener("click", los);
+    inp.addEventListener("keydown", function(e){ if (e.key === "Enter"){ e.preventDefault(); los(); } });
+    box.appendChild(wrap);
+  }
+
+  function umzugPruefen(roh, out, btn){
+    var domain = normDomain(roh);
+    if (!/^[a-z0-9ä-ü][a-z0-9ä-ü.-]*\.[a-z0-9ä-ü-]{2,}$/i.test(domain)){
+      out.innerHTML = '<div class="umzug-box warm">Bitte gib eine gültige Adresse ein, z. B. <b>meine-praxis.de</b>.</div>'; return;
+    }
+    try { localStorage.setItem(nsKey("umzug-domain"), domain); } catch(e){}
+    btn.disabled = true; btn.textContent = "prüfe …"; out.innerHTML = "";
+    fetch(LC_API + "/domain-check", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify({ domain: domain }) })
+      .then(function(r){ return r.json(); }).then(function(j){
+        btn.disabled = false; btn.textContent = "Domain prüfen";
+        if (!j || !j.ok || !j.steckbrief){
+          out.innerHTML = '<div class="umzug-box warm">Diese Adresse konnte ich gerade nicht prüfen. Schau kurz nach der Schreibweise — oder <a href="mailto:info@lechcode.de">frag uns</a>.</div>'; return;
+        }
+        var sb = j.steckbrief;
+        var mailSatz = sb.email_an_domain
+          ? ("Deine E-Mail läuft über " + (sb.email_provider || "deinen Anbieter") + " — die bleibt beim Umzug <b>unangetastet</b>.")
+          : "An dieser Adresse hängt keine E-Mail — der Umzug ist besonders unkompliziert.";
+        var g = document.createElement("div"); g.className = "umzug-box gut";
+        g.innerHTML = "<b>" + domain + "</b> liegt aktuell bei " + (sb.aktueller_anbieter || "deinem Anbieter") + ".<br>" + mailSatz +
+          "<br>Ich richte alles ein und zeige dir dann genau den <b>einen Handgriff</b>, den nur du machen kannst.";
+        out.appendChild(g);
+        var los = document.createElement("button"); los.className = "btn"; los.type = "button"; los.textContent = "Ja, Domain verbinden ✓";
+        los.addEventListener("click", function(){ umzugStarten(domain, out, los); });
+        out.appendChild(los);
+      })
+      .catch(function(){ btn.disabled = false; btn.textContent = "Domain prüfen"; out.innerHTML = '<div class="umzug-box warm">Verbindungsproblem — bitte gleich noch einmal versuchen.</div>'; });
+  }
+
+  function umzugStarten(domain, out, btn){
+    btn.disabled = true; btn.textContent = "starte …";
+    api("/job", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify({ type:"domain-selfservice", payload:{ domain: domain } }) })
+      .then(function(r){ return r.json(); }).then(function(j){
+        if (j && j.eligible === false){
+          try { localStorage.setItem(nsKey("umzug-mensch"), j.grund || ""); } catch(e){}
+          ansage("Diesen Umzug übernehmen wir persönlich.");
+          umzugNeuRendern();
+          return;
+        }
+        if (j && j.ok){ umzugSig = null; ansage("Alles klar — ich richte deine Domain jetzt ein."); statusLaden(false); }
+        else { out.innerHTML = '<div class="umzug-box warm">Das hat gerade nicht geklappt — bitte gleich noch einmal, oder <a href="mailto:info@lechcode.de">schreib uns</a>.</div>'; btn.disabled = false; btn.textContent = "Ja, Domain verbinden ✓"; }
+      })
+      .catch(function(){ out.innerHTML = '<div class="umzug-box warm">Verbindungsproblem — bitte gleich noch einmal.</div>'; btn.disabled = false; btn.textContent = "Ja, Domain verbinden ✓"; });
+  }
+
+  function umzugRenderVorbereitet(box){
+    box.innerHTML = '<div class="umzug-box">🌿 Ich richte gerade alles ein — deine Internet-Zone, die Sicherheit (SSL) und deine E-Mail-Einträge. Das dauert nur ein, zwei Minuten. Gleich zeige ich dir den letzten Schritt.</div>';
+  }
+
+  function stepLi(titel, klasse, detailFn){
+    var li = document.createElement("li");
+    if (klasse === "current") li.setAttribute("aria-current", "step");
+    if (klasse === "fertig") li.className = "fertig";
+    var pk = document.createElement("div"); pk.className = "st-punkt"; pk.textContent = klasse === "fertig" ? "✓" : "•";
+    var inh = document.createElement("div"); inh.className = "st-inhalt";
+    var t = document.createElement("div"); t.className = "st-titel"; t.textContent = titel; inh.appendChild(t);
+    if (detailFn){ var d = detailFn(); if (d) inh.appendChild(d); }
+    li.appendChild(pk); li.appendChild(inh);
+    return li;
+  }
+
+  function umzugRenderNameserver(box, job, dom){
+    var ns = (job.ziel_ns && job.ziel_ns.length) ? job.ziel_ns : ["ns.inwx.de", "ns2.inwx.de", "ns3.inwx.eu"];
+    var anl = job.anleitung || {};
+    var nsOk = umzugNsOk();
+    var ol = document.createElement("ol"); ol.className = "stepper";
+    ol.appendChild(stepLi("Geprüft & alles vorbereitet", "fertig", null));
+    ol.appendChild(stepLi("Nameserver umstellen — dein einziger Handgriff", nsOk ? "fertig" : "current",
+      nsOk ? null : function(){ return nsSwitchDetail(ns, anl, dom); }));
+    ol.appendChild(stepLi("Wir prüfen automatisch & schalten live", nsOk ? "current" : "",
+      nsOk ? function(){
+        var d = document.createElement("div"); d.className = "st-detail";
+        d.innerHTML = "Läuft — das kann ein paar Stunden bis zu einem Tag dauern, völlig normal. Du musst nichts tun, deine E-Mails laufen weiter. Diese Seite darfst du jederzeit schließen; sobald es steht, siehst du es hier. 🌿";
+        return d;
+      } : null));
+    box.appendChild(ol);
+  }
+
+  function nsSwitchDetail(ns, anl, dom){
+    var d = document.createElement("div"); d.className = "st-detail";
+    var p = document.createElement("div");
+    p.innerHTML = "Melde dich bei <b>" + (anl.provider_name || "deinem Domain-Anbieter") + "</b> an" +
+      (anl.registrar_login_url ? ' (<a href="' + anl.registrar_login_url + '" target="_blank" rel="noopener">Login öffnen ↗</a>)' : "") +
+      " und trage dort als Nameserver <b>genau diese drei</b> ein:";
+    d.appendChild(p);
+    var liste = document.createElement("div"); liste.className = "ns-liste";
+    ns.forEach(function(n){
+      var z = document.createElement("div"); z.className = "ns-zeile";
+      var c = document.createElement("code"); c.textContent = n;
+      var b = document.createElement("button"); b.className = "ns-copy"; b.type = "button"; b.textContent = "kopieren"; b.setAttribute("aria-label", "Nameserver " + n + " kopieren");
+      b.addEventListener("click", function(){ kopieren(n, b); });
+      z.appendChild(c); z.appendChild(b); liste.appendChild(z);
+    });
+    d.appendChild(liste);
+    var schritte = anl.ns_schritte || [];
+    if (schritte.length){
+      var sol = document.createElement("ol"); sol.className = "umzug-schritte";
+      schritte.forEach(function(s){
+        var li = document.createElement("li"); li.textContent = s.text || "";
+        if (s.hinweis){ var sm = document.createElement("span"); sm.className = "sub"; sm.textContent = s.hinweis; li.appendChild(sm); }
+        sol.appendChild(li);
+      });
+      d.appendChild(sol);
+    }
+    if (anl.dnssec_hinweis){ var w = document.createElement("div"); w.className = "umzug-hinweis"; w.textContent = "⚠ " + anl.dnssec_hinweis; d.appendChild(w); }
+    var fertig = document.createElement("button"); fertig.className = "btn"; fertig.type = "button"; fertig.textContent = "Hab ich gemacht ✓"; fertig.style.marginTop = "12px";
+    fertig.addEventListener("click", function(){ try { localStorage.setItem(nsKey("umzug-ns-ok"), "1"); } catch(e){} ansage("Danke — wir prüfen jetzt automatisch, wann deine Seite live ist."); umzugNeuRendern(); });
+    var hilfe = document.createElement("button"); hilfe.className = "btn btn-ghost"; hilfe.type = "button"; hilfe.textContent = "Ich komme nicht weiter"; hilfe.style.marginLeft = "8px";
+    hilfe.addEventListener("click", function(){ umzugHilfe(dom); });
+    d.appendChild(fertig); d.appendChild(hilfe);
+    return d;
+  }
+
+  function umzugRenderMensch(box, job){
+    var grund = (job && job.grund) ? (" " + job.grund) : "";
+    box.innerHTML = '<div class="umzug-box warm">🤝 Diesen Umzug übernehmen wir <b>persönlich</b> für dich —' + (grund || " bei deiner Domain schauen wir lieber selbst genau hin.") +
+      ' Du musst nichts weiter tun; wir melden uns. Fragen? <a href="mailto:info@lechcode.de">info@lechcode.de</a></div>';
+  }
+
+  // Sonderfall aus der Vorab-Prüfung (kein domain-selfservice-Job) — persistent, mit Ausweg.
+  function umzugRenderMenschStatisch(box, grund){
+    var wrap = document.createElement("div");
+    var b = document.createElement("div"); b.className = "umzug-box warm";
+    b.innerHTML = "🤝 Diesen Umzug übernehmen wir <b>persönlich</b> für dich" + (grund ? (" — " + grund) : ".") +
+      " Wir haben dem Team schon Bescheid gegeben und melden uns bei dir. Fragen? <a href=\"mailto:info@lechcode.de\">info@lechcode.de</a>";
+    wrap.appendChild(b);
+    var neu = document.createElement("button"); neu.className = "btn btn-ghost"; neu.type = "button"; neu.textContent = "Andere Adresse verbinden";
+    neu.addEventListener("click", function(){
+      try { localStorage.removeItem(nsKey("umzug-mensch")); localStorage.removeItem(nsKey("umzug-domain")); } catch(e){}
+      umzugNeuRendern();
+    });
+    wrap.appendChild(neu);
+    box.appendChild(wrap);
+  }
+
+  function umzugRenderLive(box, dom){
+    box.innerHTML = '<div class="umzug-box gut">🎉 Geschafft! <b>' + (dom || "Deine Domain") + '</b> ist jetzt mit deiner Website verbunden — und deine E-Mails laufen unverändert weiter. 🌿</div>';
+  }
+
+  function umzugHilfe(dom){
+    try {
+      api("/job", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify({
+        type:"change-request",
+        payload:{ wunsch_oton: "Umzugs-Assistent: Ich komme beim Nameserver-Schritt für " + (dom || umzugDomain()) + " nicht weiter. Bitte helft mir.", kategorie:"umzug-hilfe", aenderungen:[], bilder:[], transcript:[] }
+      }) }).catch(function(){});
+    } catch(e){}
+    umzugSig = "__hilfe__";
+    var box = document.getElementById("umzug-inhalt");
+    if (box) box.innerHTML = '<div class="umzug-box warm">Alles gut — wir haben dem Team Bescheid gegeben und melden uns bei dir. Du musst nichts weiter tun. 🤝</div>';
+    ansage("Wir haben dem Team Bescheid gegeben.");
+  }
+
+  function umzugGoLiveCheck(domain){
+    if (umzugChecking || umzugIstLive()) return;
+    umzugChecking = true;
+    fetch(LC_API + "/domain-check", { method:"POST", headers:{"content-type":"application/json"}, body: JSON.stringify({ domain: domain }) })
+      .then(function(r){ return r.json(); }).then(function(j){
+        umzugChecking = false;
+        if (!j || !j.ok || !j.steckbrief) return;
+        var sb = j.steckbrief, a = (sb.dns_ist && sb.dns_ist.a) || [];
+        var ghp = ["185.199.108.153", "185.199.109.153", "185.199.110.153", "185.199.111.153"];
+        var aufPages = sb.aktuelles_hosting === "GitHub Pages" || a.some(function(ip){ return ghp.indexOf(ip) >= 0; });
+        var mailDa = !sb.email_an_domain || (sb.nicht_verlieren && sb.nicht_verlieren.mx && sb.nicht_verlieren.mx.length > 0);
+        if (aufPages && mailDa){
+          try { localStorage.setItem(nsKey("umzug-live"), "1"); } catch(e){}
+          ansage("Deine Domain " + domain + " ist jetzt live.");
+          seiteLaden();
+          umzugNeuRendern();
+        }
+      })
+      .catch(function(){ umzugChecking = false; });
+  }
+
+  function kopieren(text, btn){
+    var fertig = function(){ var alt = btn.textContent; btn.textContent = "kopiert ✓"; ansage(text + " kopiert."); setTimeout(function(){ btn.textContent = alt; }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(fertig, fertig); }
+    else { fertig(); }
+  }
+
   statusLaden(true);
   setInterval(function(){ statusLaden(false); }, 30000);
 
@@ -635,6 +980,8 @@
   var zeileEl = document.getElementById("chat-eingabe-zeile");
   var beauftragenBox = document.getElementById("beauftragen");
   var letzterRequest = null;
+  var bekannteProaktiv = {}; // schon gezeigte proaktive Nachrichten (id → 1), gegen Doppel-Anzeige
+  var angehaengteDatei = null; // im Chat angehängte Datei (vor dem Senden)
 
   // ===== Sprachnachricht-Bausteine (identisch in berater.html & mein-bereich.html) =====
   function lcVoiceUnterstuetzt(){ return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder); }
@@ -648,7 +995,7 @@
       var rec = mime ? new MediaRecorder(stream, {mimeType:mime}) : new MediaRecorder(stream);
       var chunks = []; rec.ondataavailable = function(e){ if (e.data && e.data.size) chunks.push(e.data); };
       var actx = new (window.AudioContext||window.webkitAudioContext)();
-      var ana = actx.createAnalyser(); ana.fftSize = 64;
+      var ana = actx.createAnalyser(); ana.fftSize = 256; ana.smoothingTimeConstant = 0.75;
       actx.createMediaStreamSource(stream).connect(ana);
       var freq = new Uint8Array(ana.frequencyBinCount), peaks = [];
 
@@ -657,18 +1004,36 @@
       var dot = document.createElement("span"); dot.className = "lc-rec-dot";
       var time = document.createElement("span"); time.className = "lc-rec-time"; time.textContent = "0:00";
       var wave = document.createElement("div"); wave.className = "lc-rec-wave";
-      var BARS = 22, ibars = []; for (var i=0;i<BARS;i++){ var bi = document.createElement("i"); wave.appendChild(bi); ibars.push(bi); }
       var send = document.createElement("button"); send.className = "lc-rec-btn lc-rec-send"; send.type = "button"; send.setAttribute("aria-label","Sprachnachricht senden"); send.innerHTML = "→";
       bar.appendChild(cancel); bar.appendChild(dot); bar.appendChild(time); bar.appendChild(wave); bar.appendChild(send);
       verstecken.forEach(function(el){ el.style.display = "none"; });
       zeile.appendChild(bar);
 
+      // Balkenzahl an die tatsächliche Wellenform-Breite anpassen → füllt jede Breite dicht
+      // (Desktop viele, Mobil weniger); Balken je 3px + 3px Lücke = 6px.
+      var BARS = Math.max(20, Math.min(96, Math.floor(((wave.clientWidth || 320) + 3) / 6)));
+      var ibars = [], form = [];
+      for (var i=0;i<BARS;i++){
+        var bi = document.createElement("i"); wave.appendChild(bi); ibars.push(bi);
+        // stabile, organische Silhouette: sanfter Bogen (Mitte höher) + leichte Streuung
+        var t0 = BARS > 1 ? i/(BARS-1) : 0.5;
+        form.push((0.6 + 0.4*Math.sin(Math.PI*t0)) * (0.78 + 0.44*Math.random()));
+      }
+
       var start = Date.now(), raf, abgebrochen = false;
       function tick(){
         ana.getByteFrequencyData(freq);
-        var sum = 0;
-        for (var i=0;i<BARS;i++){ var v = freq[i]/255; ibars[i].style.height = Math.max(8, v*100) + "%"; sum += v; }
-        peaks.push(sum/BARS);
+        var bins = freq.length;
+        var vBins = Math.max(6, Math.floor(bins*0.55));       // Sprach-Energie sitzt in den unteren Bins
+        var level = 0; for (var k=0;k<vBins;k++) level += freq[k]; level = (level/vBins)/255; // 0..1
+        for (var i=0;i<BARS;i++){
+          var t = BARS>1 ? i/(BARS-1) : 0.5;
+          var spec = freq[Math.floor(t*(vBins-1))]/255;       // etwas Spektral-Bewegung über die Breite
+          var h = level*form[i]*1.5 + spec*0.25;              // Lautstärke (überall) + Bewegung
+          if (h > 1) h = 1;
+          ibars[i].style.height = Math.max(8, h*100) + "%";
+        }
+        peaks.push(level);                                     // Hüllkurve für die gesendete Sprach-Bubble
         var dauer = (Date.now()-start)/1000; time.textContent = lcFmtZeit(dauer);
         if (dauer > 90){ beenden(); return; }
         raf = requestAnimationFrame(tick);
@@ -787,26 +1152,76 @@
     try {
       var arr = messages.slice(-60);                       // Speicher deckeln
       while (arr.length && arr[0].role !== "user") arr.shift(); // immer mit „user" beginnen
-      if (!arr.length){ localStorage.removeItem(nsKey("lc-chat")); return; }
-      localStorage.setItem(nsKey("lc-chat"), JSON.stringify(arr));
+      if (!arr.length){ localStorage.removeItem(nsKey("lc-chat")); }
+      else localStorage.setItem(nsKey("lc-chat"), JSON.stringify(arr));
     } catch(e){}
+    serverSpeichern();
+  }
+  // Verlauf zusätzlich server-seitig sichern (Wahrheit, geräteübergreifend). Entprellt,
+  // Fire-and-forget; der Server erhält proaktive Nachrichten merge-sicher (per id).
+  var saveTimer = null;
+  function serverSpeichern(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      try {
+        api("/dashboard-chat/save", {method:"POST", headers:{"content-type":"application/json"},
+          body: JSON.stringify({messages: messages.slice(-80)})}).catch(function(){});
+      } catch(e){}
+    }, 400);
   }
   function chatLaden(){
     try { var a = JSON.parse(localStorage.getItem(nsKey("lc-chat")) || "null"); return Array.isArray(a) ? a : null; }
     catch(e){ return null; }
   }
 
-  var fruehererVerlauf = chatLaden();
-  if (fruehererVerlauf && fruehererVerlauf.length){
-    // Verlauf wiederherstellen — kein neuer Opener, damit es sich wie Weitermachen anfühlt.
-    messages = fruehererVerlauf;
-    fruehererVerlauf.forEach(function(m){
+  function verlaufRendern(arr){
+    arr.forEach(function(m){
       if (!m || !m.content) return;
       if (m.role === "user" && m.content === OPENER_INSTR) return; // versteckte Begrüßungs-Anweisung nie anzeigen
+      if (m.proaktiv && m.id) bekannteProaktiv[m.id] = 1;
       bubble(m.role === "user" ? "user" : "assistant", m.content);
     });
-  } else {
-    openerZeigen();
+  }
+  // Verlauf laden: Server ist die Wahrheit (geräteübergreifend, wir können reinschreiben).
+  // localStorage nur als Offline-Fallback; ein reiner Browser-Verlauf wird einmalig migriert.
+  (async function ladeVerlauf(){
+    var serverArr = null;
+    try {
+      var r = await api("/dashboard-chat/verlauf", {method:"GET"});
+      var j = await r.json();
+      if (j && j.ok && Array.isArray(j.messages)) serverArr = j.messages;
+    } catch(e){}
+    if (serverArr && serverArr.length){
+      messages = serverArr; verlaufRendern(serverArr);
+    } else {
+      var lokal = chatLaden();
+      if (lokal && lokal.length){
+        messages = lokal; verlaufRendern(lokal); serverSpeichern(); // einmalig zum Server migrieren
+      } else {
+        openerZeigen();
+      }
+    }
+    setInterval(proaktivPoll, 30000); // proaktive Nachrichten (z. B. „Änderung ist live") abholen
+  })();
+
+  // Neue proaktive Berater-Nachrichten vom Server holen und einblenden (id-dedupliziert).
+  async function proaktivPoll(){
+    if (beschaeftigt) return;
+    var arr = null;
+    try {
+      var r = await api("/dashboard-chat/verlauf", {method:"GET"});
+      var j = await r.json();
+      if (j && j.ok && Array.isArray(j.messages)) arr = j.messages;
+    } catch(e){ return; }
+    if (!arr) return;
+    var neue = arr.filter(function(m){ return m && m.proaktiv && m.id && !bekannteProaktiv[m.id]; });
+    if (!neue.length) return;
+    neue.forEach(function(m){
+      bekannteProaktiv[m.id] = 1;
+      messages.push({role:"assistant", content:m.content, proaktiv:true, id:m.id, t:m.t});
+      bubble("assistant", m.content);
+    });
+    try { var arr2 = messages.slice(-60); localStorage.setItem(nsKey("lc-chat"), JSON.stringify(arr2)); } catch(e){}
   }
 
   // Blendet den technischen Bereitschafts-Marker aus der Anzeige aus (auch als Teil-Marker
@@ -857,8 +1272,10 @@
   }
 
   async function senden(){
+    if (beschaeftigt) return;
     var text = eingabe.value.trim();
-    if (!text || beschaeftigt) return;
+    if (angehaengteDatei){ await dateiSenden(text); return; } // Datei angehängt → Upload-Weg
+    if (!text) return;
     beschaeftigt = true; sendBtn.disabled = true;
     eingabe.value = ""; eingabe.style.height = "auto";
     messages.push({role:"user", content:text});
@@ -936,6 +1353,9 @@
   document.getElementById("chat-senden").addEventListener("click", senden);
   eingabe.addEventListener("keydown", function(e){ if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); senden(); } });
   eingabe.addEventListener("input", function(){ this.style.height = "auto"; this.style.height = Math.min(this.scrollHeight, 130) + "px"; });
+  // Placeholder responsiv: mobil kurz (passt ohne Abschneiden), Desktop mit vollem Hinweis
+  function placeholderAnpassen(){ eingabe.setAttribute("placeholder", window.innerWidth < 560 ? "Schreib oder sprich …" : "Schreib, sprich oder häng was an …"); }
+  placeholderAnpassen(); window.addEventListener("resize", placeholderAnpassen);
   document.getElementById("beauftragen-abbruch").addEventListener("click", function(){ beauftragenBox.classList.remove("an"); eingabe.focus(); });
 
   document.getElementById("beauftragen-btn").addEventListener("click", async function(){
@@ -963,14 +1383,11 @@
     }
   });
 
-  // — Datei-Upload (Bilder, PDFs, Dokumente) —
-  var dateiInput = document.getElementById("datei");
-  var drop = document.getElementById("drop");
-  var vorschau = document.getElementById("vorschau");
-  var vorschauBild = document.getElementById("vorschau-bild");
-  var dateiChip = document.getElementById("datei-chip");
-  var uploadStatus = document.getElementById("upload-status");
-  var gewaehlteDatei = null;
+  // — Datei im Chat anhängen (Klick, Drag-Drop, Paste) → beim Senden hochladen —
+  var anhangEl = document.getElementById("chat-anhang");
+  var attachBtn = document.getElementById("chat-attach");
+  var chatDatei = document.getElementById("chat-datei");
+  var chatDrop = verlauf.closest(".karte") || zeileEl;
 
   function icZuTyp(name){
     var e = (name.split(".").pop() || "").toLowerCase();
@@ -984,63 +1401,84 @@
     if (bytes < 1024*1024) return Math.max(1, Math.round(bytes/1024)) + " KB";
     return (bytes/1024/1024).toFixed(1) + " MB";
   }
-  function dateiWaehlen(f){
+  function anhangSetzen(f){
     if (!f) return;
-    if (f.size > 12 * 1024 * 1024){
-      uploadStatus.textContent = "Die Datei ist größer als 12 MB — bitte eine kleinere Version wählen.";
-      uploadStatus.className = "upload-status an fehler"; return;
-    }
-    gewaehlteDatei = f;
-    uploadStatus.className = "upload-status";
+    if (f.size > 12 * 1024 * 1024){ bubble("assistant", "Die Datei ist größer als 12 MB — magst du eine kleinere Version anhängen?"); return; }
+    angehaengteDatei = f;
+    anhangEl.innerHTML = "";
     if (f.type && f.type.indexOf("image/") === 0){
-      vorschauBild.src = URL.createObjectURL(f);
-      vorschauBild.style.display = "";
-      dateiChip.classList.remove("an");
+      var img = document.createElement("img"); img.src = URL.createObjectURL(f); img.alt = ""; anhangEl.appendChild(img);
     } else {
-      vorschauBild.style.display = "none";
-      document.getElementById("datei-icon").textContent = icZuTyp(f.name);
-      document.getElementById("datei-name").textContent = f.name;
-      document.getElementById("datei-groesse").textContent = groesse(f.size);
-      dateiChip.classList.add("an");
+      var ic = document.createElement("div"); ic.className = "ah-ic"; ic.textContent = icZuTyp(f.name); anhangEl.appendChild(ic);
     }
-    vorschau.classList.add("an");
+    var meta = document.createElement("div"); meta.className = "ah-meta";
+    var nm = document.createElement("span"); nm.className = "ah-name"; nm.textContent = f.name;
+    var sz = document.createElement("span"); sz.className = "ah-size"; sz.textContent = groesse(f.size);
+    meta.appendChild(nm); meta.appendChild(sz); anhangEl.appendChild(meta);
+    var x = document.createElement("button"); x.type = "button"; x.className = "ah-x"; x.setAttribute("aria-label","Anhang entfernen"); x.textContent = "✕";
+    x.addEventListener("click", anhangEntfernen); anhangEl.appendChild(x);
+    anhangEl.classList.add("an");
+    eingabe.focus();
   }
-  dateiInput.addEventListener("change", function(){ dateiWaehlen(this.files[0]); });
-  ["dragover","dragenter"].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add("zieht"); }); });
-  ["dragleave","drop"].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove("zieht"); }); });
-  drop.addEventListener("drop", function(e){ dateiWaehlen(e.dataTransfer.files[0]); });
+  function anhangEntfernen(){
+    angehaengteDatei = null; anhangEl.classList.remove("an"); anhangEl.innerHTML = ""; chatDatei.value = "";
+  }
+  attachBtn.addEventListener("click", function(){ if (!beschaeftigt) chatDatei.click(); });
+  chatDatei.addEventListener("change", function(){ anhangSetzen(this.files[0]); });
+  ["dragover","dragenter"].forEach(function(ev){ chatDrop.addEventListener(ev, function(e){ e.preventDefault(); zeileEl.classList.add("zieht"); }); });
+  ["dragleave","dragend","drop"].forEach(function(ev){ chatDrop.addEventListener(ev, function(e){ e.preventDefault(); zeileEl.classList.remove("zieht"); }); });
+  chatDrop.addEventListener("drop", function(e){ if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) anhangSetzen(e.dataTransfer.files[0]); });
+  eingabe.addEventListener("paste", function(e){
+    var items = (e.clipboardData && e.clipboardData.items) || [];
+    for (var i=0;i<items.length;i++){ if (items[i].kind === "file"){ var f = items[i].getAsFile(); if (f){ e.preventDefault(); anhangSetzen(f); return; } } }
+  });
 
-  document.getElementById("hochladen").addEventListener("click", async function(){
-    if (!gewaehlteDatei) return;
-    var knopf = this; knopf.disabled = true; knopf.textContent = "Lädt hoch …";
+  // Datei-Bubble im Verlauf (Thumbnail bei Bildern, Chip bei Dokumenten) + optionale Caption
+  function dateiBubble(f, caption){
+    var el = document.createElement("div"); el.className = "msg du datei";
+    if (f.type && f.type.indexOf("image/") === 0){
+      var img = document.createElement("img"); img.src = URL.createObjectURL(f); img.alt = f.name; el.appendChild(img);
+    } else {
+      var chip = document.createElement("div"); chip.className = "d-chip";
+      var ic = document.createElement("span"); ic.className = "d-ic"; ic.textContent = icZuTyp(f.name);
+      var nm = document.createElement("span"); nm.textContent = f.name + " · " + groesse(f.size);
+      chip.appendChild(ic); chip.appendChild(nm); el.appendChild(chip);
+    }
+    if (caption){ var cap = document.createElement("div"); cap.className = "d-cap"; cap.textContent = caption; el.appendChild(cap); }
+    verlauf.appendChild(el); verlauf.scrollTop = verlauf.scrollHeight;
+  }
+
+  // Angehängte Datei senden: Bubble zeigen → /upload (Anweisung = Caption) → Bestätigung.
+  // Das Bild wird NICHT im Verlauf-Speicher (KV) abgelegt (Bloat) — dort nur eine Text-Referenz.
+  async function dateiSenden(caption){
+    var f = angehaengteDatei; if (!f) return;
+    beschaeftigt = true; sendBtn.disabled = true;
+    var name = f.name;
+    dateiBubble(f, caption);
+    anhangEntfernen(); eingabe.value = ""; eingabe.style.height = "auto";
+    messages.push({role:"user", content:"📎 Datei gesendet: " + name + (caption ? " — " + caption : "")});
+    chatSpeichern();
+    var warte = bubble("assistant", "Lädt hoch … 🌿");
     try {
       var b64 = await new Promise(function(res, rej){
-        var fr = new FileReader();
-        fr.onload = function(){ res(String(fr.result).split(",")[1]); };
-        fr.onerror = rej;
-        fr.readAsDataURL(gewaehlteDatei);
+        var fr = new FileReader(); fr.onload = function(){ res(String(fr.result).split(",")[1]); }; fr.onerror = rej; fr.readAsDataURL(f);
       });
       var r = await api("/upload", {method:"POST", headers:{"content-type":"application/json"},
-        body: JSON.stringify({
-          filename: gewaehlteDatei.name,
-          content_b64: b64,
-          anweisung: document.getElementById("anweisung").value.trim()
-        })});
+        body: JSON.stringify({filename: name, content_b64: b64, anweisung: caption})});
       var j = await r.json();
       if (!j.ok) throw new Error(j.meldung || "");
-      uploadStatus.textContent = "Angekommen ✓ — wir kümmern uns darum. Fortschritt siehst du oben.";
-      uploadStatus.className = "upload-status an";
-      vorschau.classList.remove("an");
-      dateiChip.classList.remove("an"); vorschauBild.style.display = "";
-      gewaehlteDatei = null; dateiInput.value = "";
-      document.getElementById("anweisung").value = "";
+      var okText = caption
+        ? "Angekommen ✓ — ich kümmere mich darum. Den Fortschritt siehst du oben unter „Deine Aufträge“, dort kommt auch der Link, sobald es live ist."
+        : "Angekommen ✓ — die Datei liegt bei uns. Sag mir gern noch, was ich damit machen soll (z. B. „als großes Bild ganz oben“), dann baue ich sie ein.";
+      warte.innerHTML = kiMd(okText);
+      messages.push({role:"assistant", content: okText}); chatSpeichern();
       statusLaden(false);
     } catch(e){
-      uploadStatus.textContent = (e && e.message) ? e.message : "Der Upload hat nicht geklappt — bitte noch einmal versuchen.";
-      uploadStatus.className = "upload-status an fehler";
+      warte.innerHTML = kiMd((e && e.message) ? e.message : "Der Upload hat gerade nicht geklappt — magst du es noch einmal versuchen?");
     }
-    knopf.disabled = false; knopf.textContent = "Hochladen →";
-  });
+    verlauf.scrollTop = verlauf.scrollHeight;
+    beschaeftigt = false; sendBtn.disabled = false;
+  }
 })();
 </script>
 </body>
