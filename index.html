@@ -168,6 +168,10 @@
   .ort-copy p{margin-top:16px;color:var(--muted);font-size:17px;}
   @media (max-width:900px){ .ort-grid{grid-template-columns:1fr;} }
 
+  /* Bild-Abschluss */
+  .img-full{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);}
+  .img-full img{width:100%;height:auto;}
+
   /* CTA */
   .cta-band{position:relative;overflow:hidden;background:var(--ink);color:#fff;border-radius:var(--r-lg);padding:clamp(44px,6vw,80px) clamp(28px,5vw,64px);text-align:center;box-shadow:var(--shadow);}
   .cta-band .blob{opacity:.4;}
@@ -357,7 +361,7 @@
       <div class="wrap">
         <div class="ort-grid reveal">
           <div class="ort-media">
-            <img src="uploads/eingang/landsberg-am-lech-tipps-mrlxnbtj.jpg" alt="Blick auf Landsberg am Lech — die Stadt, von der aus ich arbeite." loading="lazy" />
+            <img src="assets/landsberg-am-lech-tipps-mrlxnbtj.jpg" alt="Blick auf Landsberg am Lech — die Stadt, von der aus ich arbeite." loading="lazy" />
           </div>
           <div class="ort-copy">
             <span class="eyebrow"><span class="dot"></span>Mein Ort</span>
@@ -429,6 +433,15 @@
             <a class="btn btn-primary" href="mailto:hallo@coreshift-test.de">Kostenloses Kennenlernen <span class="arr">→</span></a>
             <a class="btn btn-ghost" href="#angebot">Angebot ansehen</a>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BILD -->
+    <section class="sec" style="padding-top:0">
+      <div class="wrap">
+        <div class="img-full reveal">
+          <img src="assets/wiesenblumen-mrymykxb.png" alt="Bunte Wiesenblumen in voller Blüte." loading="lazy" decoding="async" />
         </div>
       </div>
     </section>
